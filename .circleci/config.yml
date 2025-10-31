@@ -1,0 +1,43 @@
+version: 2.1
+
+orbs: 
+  docker: circleci/docker@2.8.0
+  node: circleci/node@1.1.6
+
+workflows:
+
+  build-dev:
+
+    jobs:
+
+      - docker/check:
+          registry: registry.thinx.cloud:5000
+      - docker/build:
+          registry: registry.thinx.cloud:5000
+          docker-context: dev
+          image: thinxcloud/console-build-env
+          dockerfile: dev/Dockerfile
+          tag: 'latest'
+      - docker/push:
+          digest-path: /tmp/digest.txt
+          image: thinxcloud/console-build-env
+          registry: registry.thinx.cloud:5000
+          tag: 'latest'
+
+  build-vue:
+
+    jobs:
+
+      - docker/check:
+          registry: registry.thinx.cloud:5000
+      - docker/build:
+          registry: registry.thinx.cloud:5000
+          docker-context: dev
+          image: thinxcloud/console-build-env
+          dockerfile: vue/Dockerfile
+          tag: 'vue'
+      - docker/push:
+          digest-path: /tmp/digest.txt
+          image: thinxcloud/console-build-env
+          registry: registry.thinx.cloud:5000
+          tag: 'vue'
