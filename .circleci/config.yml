@@ -10,8 +10,8 @@ workflows:
 
     jobs:
 
-      - docker/check:
-          registry: registry.thinx.cloud:5000
+      #- docker/check:
+      #    registry: registry.thinx.cloud:5000
       - docker/build:
           registry: registry.thinx.cloud:5000
           docker-context: dev
@@ -28,8 +28,8 @@ workflows:
 
     jobs:
 
-      - docker/check:
-          registry: registry.thinx.cloud:5000
+      #- docker/check:
+      #    registry: registry.thinx.cloud:5000
       - docker/build:
           registry: registry.thinx.cloud:5000
           docker-context: dev
