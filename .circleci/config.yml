@@ -1,19 +1,20 @@
 version: 2.1
 
-orbs: 
+orbs:
   docker: circleci/docker@1.7.0
 
 jobs:
   dev-job:
     docker:
-      # replace with your preferred image
       - image: cimg/base:stable
     steps:
+      - checkout
+      - setup_remote_docker
       - docker/build:
           registry: registry.thinx.cloud:5000
-          docker-context: dev
+          docker-context: ./dev
           image: thinxcloud/console-build-env
-          dockerfile: dev/Dockerfile
+          dockerfile: ./dev/Dockerfile
           tag: 'latest'
       - docker/push:
           digest-path: /tmp/digest.txt
@@ -23,14 +24,15 @@ jobs:
 
   vue-job:
     docker:
-      # replace with your preferred image
       - image: cimg/base:stable
     steps:
+      - checkout
+      - setup_remote_docker
       - docker/build:
           registry: registry.thinx.cloud:5000
-          docker-context: dev
+          docker-context: ./vue
           image: thinxcloud/console-build-env
-          dockerfile: vue/Dockerfile
+          dockerfile: ./vue/Dockerfile
           tag: 'vue'
       - docker/push:
           digest-path: /tmp/digest.txt
