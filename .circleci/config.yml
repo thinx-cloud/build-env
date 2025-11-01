@@ -12,15 +12,16 @@ jobs:
       - setup_remote_docker
       - docker/check
       - docker/build:
-          #registry: registry.thinx.cloud:5000
           docker-context: ./dev
           image: suculent/console-build-env
           dockerfile: ./dev/Dockerfile
           tag: 'latest'
+      - run:
+          name: Login to public Docker registry
+          command: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_LOGIN" --password-stdin
       - docker/push:
           digest-path: /tmp/digest.txt
           image: suculent/console-build-env
-          #registry: registry.thinx.cloud:5000
           tag: 'latest'
 
   vue-job:
@@ -31,15 +32,16 @@ jobs:
       - setup_remote_docker
       - docker/check
       - docker/build:
-          #registry: registry.thinx.cloud:5000
           docker-context: ./vue
           image: suculent/console-build-env
           dockerfile: ./vue/Dockerfile
           tag: 'vue'
+      - run:
+          name: Login to public Docker registry
+          command: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_LOGIN" --password-stdin
       - docker/push:
           digest-path: /tmp/digest.txt
           image: suculent/console-build-env
-          #registry: registry.thinx.cloud:5000
           tag: 'vue'
 
 workflows:
@@ -48,11 +50,9 @@ workflows:
       - dev-job:
           context:
             - dockerhub
-            #- thinx-docker-repo
 
   build-vue:
     jobs:
       - vue-job:
           context:
             - dockerhub
-            #- thinx-docker-repo
