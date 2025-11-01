@@ -21,6 +21,8 @@ jobs:
           image: thinxcloud/console-build-env
           registry: registry.thinx.cloud:5000
           tag: 'latest'
+          context:
+            - dockerhub
 
   vue-job:
     docker:
@@ -39,6 +41,8 @@ jobs:
           image: thinxcloud/console-build-env
           #registry: registry.thinx.cloud:5000
           tag: 'vue'
+          context:
+            - dockerhub
 
 workflows:
   build-dev:
