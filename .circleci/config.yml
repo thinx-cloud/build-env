@@ -16,6 +16,9 @@ jobs:
           image: thinxcloud/console-build-env
           dockerfile: ./dev/Dockerfile
           tag: 'latest'
+      - run:
+          name: Login to private Docker registry
+          command: echo "$DOCKER_PASSWORD" | docker login registry.thinx.cloud:5000 -u "$DOCKER_LOGIN" --password-stdin
       - docker/push:
           digest-path: /tmp/digest.txt
           image: thinxcloud/console-build-env
@@ -34,6 +37,9 @@ jobs:
           image: thinxcloud/console-build-env
           dockerfile: ./vue/Dockerfile
           tag: 'vue'
+      - run:
+          name: Login to private Docker registry
+          command: echo "$DOCKER_PASSWORD" | docker login registry.thinx.cloud:5000 -u "$DOCKER_LOGIN" --password-stdin
       - docker/push:
           digest-path: /tmp/digest.txt
           image: thinxcloud/console-build-env
