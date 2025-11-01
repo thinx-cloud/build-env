@@ -11,7 +11,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - docker/build:
-          #registry: registry.thinx.cloud:5000
+          registry: registry.thinx.cloud:5000
           docker-context: ./dev
           image: thinxcloud/console-build-env
           dockerfile: ./dev/Dockerfile
@@ -19,7 +19,7 @@ jobs:
       - docker/push:
           digest-path: /tmp/digest.txt
           image: thinxcloud/console-build-env
-          #registry: registry.thinx.cloud:5000
+          registry: registry.thinx.cloud:5000
           tag: 'latest'
 
   vue-job:
@@ -29,7 +29,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - docker/build:
-          #registry: registry.thinx.cloud:5000
+          registry: registry.thinx.cloud:5000
           docker-context: ./vue
           image: thinxcloud/console-build-env
           dockerfile: ./vue/Dockerfile
@@ -37,7 +37,7 @@ jobs:
       - docker/push:
           digest-path: /tmp/digest.txt
           image: thinxcloud/console-build-env
-          #registry: registry.thinx.cloud:5000
+          registry: registry.thinx.cloud:5000
           tag: 'vue'
 
 workflows:
@@ -45,10 +45,12 @@ workflows:
     jobs:
       - dev-job:
           context:
-            - dockerhub
+            #- dockerhub
+            - thinx-docker-repo
 
   build-vue:
     jobs:
       - vue-job:
           context:
-            - dockerhub
+            #- dockerhub
+            - thinx-docker-repo
