@@ -7,8 +7,6 @@ jobs:
   dev-job:
     docker:
       - image: cimg/base:stable
-    context:
-      - dockerhub
     steps:
       - checkout
       - setup_remote_docker
@@ -27,8 +25,6 @@ jobs:
   vue-job:
     docker:
       - image: cimg/base:stable
-    context:
-      - dockerhub
     steps:
       - checkout
       - setup_remote_docker
@@ -47,8 +43,12 @@ jobs:
 workflows:
   build-dev:
     jobs:
-      - dev-job
+      - dev-job:
+          context:
+            - dockerhub
 
   build-vue:
     jobs:
-      - vue-job
+      - vue-job:
+          context:
+            - dockerhub
