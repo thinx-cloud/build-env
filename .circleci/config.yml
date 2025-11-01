@@ -13,12 +13,12 @@ jobs:
       - docker/build:
           #registry: registry.thinx.cloud:5000
           docker-context: ./dev
-          image: thinxcloud/console-build-env
+          image: suculent/console-build-env
           dockerfile: ./dev/Dockerfile
           tag: 'latest'
       - docker/push:
           digest-path: /tmp/digest.txt
-          image: thinxcloud/console-build-env
+          image: suculent/console-build-env
           #registry: registry.thinx.cloud:5000
           tag: 'latest'
 
@@ -31,12 +31,12 @@ jobs:
       - docker/build:
           #registry: registry.thinx.cloud:5000
           docker-context: ./vue
-          image: thinxcloud/console-build-env
+          image: suculent/console-build-env
           dockerfile: ./vue/Dockerfile
           tag: 'vue'
       - docker/push:
           digest-path: /tmp/digest.txt
-          image: thinxcloud/console-build-env
+          image: suculent/console-build-env
           #registry: registry.thinx.cloud:5000
           tag: 'vue'
 
