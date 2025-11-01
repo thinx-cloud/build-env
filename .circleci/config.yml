@@ -7,6 +7,8 @@ jobs:
   dev-job:
     docker:
       - image: cimg/base:stable
+    context:
+      - dockerhub
     steps:
       - checkout
       - setup_remote_docker
@@ -21,12 +23,12 @@ jobs:
           image: thinxcloud/console-build-env
           registry: registry.thinx.cloud:5000
           tag: 'latest'
-          context:
-            - dockerhub
 
   vue-job:
     docker:
       - image: cimg/base:stable
+    context:
+      - dockerhub
     steps:
       - checkout
       - setup_remote_docker
@@ -41,13 +43,12 @@ jobs:
           image: thinxcloud/console-build-env
           #registry: registry.thinx.cloud:5000
           tag: 'vue'
-          context:
-            - dockerhub
 
 workflows:
   build-dev:
     jobs:
       - dev-job
+
   build-vue:
     jobs:
       - vue-job
